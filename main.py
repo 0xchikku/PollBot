@@ -5,6 +5,7 @@ import disputils
 from disputils import BotEmbedPaginator, BotConfirmation, BotMultipleChoice
 
 
+
 bot = commands.Bot(command_prefix='-')
 
 my_secret = os.environ['TOKEN']
@@ -25,5 +26,17 @@ async def confirm(ctx):
         await confirmation.update("Confirmed", color=0x55ff55)
     else:
         await confirmation.update("Not confirmed", hide_author=True, color=0xff5555)
+
+@bot.command()
+async def paginate(ctx):
+    embeds = [
+        discord.Embed(title="test page 1", description="This is just some test content!", color=0x115599),
+        discord.Embed(title="test page 2", description="Nothing interesting here.", color=0x5599ff),
+        discord.Embed(title="test page 3", description="Why are you still here?", color=0x191638)
+    ]
+
+    paginator = BotEmbedPaginator(ctx, embeds)
+    await paginator.run()
+
 
 bot.run(my_secret)
